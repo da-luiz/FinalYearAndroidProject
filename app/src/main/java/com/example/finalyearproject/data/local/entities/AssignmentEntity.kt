@@ -1,4 +1,4 @@
-package com.example.finalyearproject.data.local.dao
+package com.example.finalyearproject.data.local.entities
 
 import androidx.room.Entity
 
