@@ -1,10 +1,11 @@
 package com.example.finalyearproject.domain.usecase.timetable
 
-import com.example.finalyearproject.domain.model.TimetableEntry
 import com.example.finalyearproject.domain.repository.TimetableRepository
+import com.example.finalyearproject.domain.model.TimetableEntry
 
-class EditTimetableEntryUseCase(private val repository: TimetableRepository) {
-    suspend fun execute(entry: TimetableEntry) {
+class UpdateTimetable(private val repository: TimetableRepository) {
+
+    suspend operator fun invoke(entry: TimetableEntry) {
         repository.updateTimetableEntry(entry)
     }
 }

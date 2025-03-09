@@ -1,4 +1,4 @@
-package com.example.finalyearproject.domain.usecase.Timetable
+package com.example.finalyearproject.domain.usecase.timetable
 
 import com.example.finalyearproject.domain.model.TimetableEntry
 import com.example.finalyearproject.domain.repository.TimetableRepository
