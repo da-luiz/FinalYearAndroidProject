@@ -41,8 +41,27 @@ android {
 }
 
 dependencies {
+
     implementation ("org.apache.poi:poi:5.2.3")
     implementation ("org.apache.poi:poi-ooxml:5.2.3")
+
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+
+
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
+
+    implementation ("androidx.compose.ui:ui:1.5.4")
+    implementation ("androidx.compose.material3:material3:1.1.2")
+    implementation ("androidx.activity:activity-compose:1.8.2")
+
+    implementation ("androidx.navigation:navigation-compose:2.7.5")
+
+    implementation ("androidx.activity:activity-compose:1.8.2")
+    implementation ("androidx.compose.ui:ui:1.5.4")
+    implementation ("androidx.compose.material3:material3:1.1.2")
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
