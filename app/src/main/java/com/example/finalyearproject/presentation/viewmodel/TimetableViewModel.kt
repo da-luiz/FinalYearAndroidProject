@@ -1,5 +1,5 @@
 package com.example.finalyearproject.presentation.viewmodel
-
+/*
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.finalyearproject.domain.models.Timetable
@@ -30,3 +30,4 @@ class TimetableViewModel(private val repository: TimetableRepository) : ViewMode
         }
     }
 }
+*/

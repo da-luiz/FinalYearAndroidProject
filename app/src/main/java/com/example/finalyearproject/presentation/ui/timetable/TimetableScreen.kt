@@ -1,5 +1,5 @@
 package com.example.finalyearproject.presentation.ui.timetable
-
+/*
 import com.example.finalyearproject.presentation.components.TimetableCard
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -50,3 +50,4 @@ fun TimetableScreen(navController: NavController, viewModel: TimetableViewModel 
         }
     }
 }
+*/
