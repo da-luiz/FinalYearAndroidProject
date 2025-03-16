@@ -8,3 +8,7 @@ data class AssignmentReminder(
     val assignmentTitle: String,  // Title of the Assignment
     val reminderTime: Date  // When the reminder should be triggered
 )
+
+enum class NotificationType {
+    ASSIGNMENT, TIMETABLE, GENERAL
+}

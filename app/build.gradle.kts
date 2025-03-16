@@ -1,8 +1,8 @@
 plugins {
+    alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.compose)
-    alias(libs.plugins.kotlin.ksp)
+    alias(libs.plugins.relay) 
 
 }
 
@@ -45,11 +45,11 @@ dependencies {
 
     implementation ("org.apache.poi:poi:5.2.3")
     implementation ("org.apache.poi:poi-ooxml:5.2.3")
-    implementation("org.docx4j:docx4j-android-legacy:8.1.0")
-    implementation("androidx.datastore:datastore-preferences:1.0.0")
+
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
-    ksp(libs.room.compiler)
+
+    implementation("androidx.navigation:navigation-compose:2.7.5")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
