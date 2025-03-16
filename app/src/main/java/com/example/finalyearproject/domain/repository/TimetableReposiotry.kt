@@ -1,5 +1,7 @@
 package com.example.finalyearproject.domain.repository
 
+import android.content.Context
+import android.net.Uri
 import com.example.finalyearproject.domain.model.TimetableEntry
 import kotlinx.coroutines.flow.Flow
 
@@ -9,4 +11,7 @@ interface TimetableRepository {
     suspend fun updateTimetableEntry(entry: TimetableEntry)  // Edit an existing entry
     suspend fun addCustomTimetableEntry(entry: TimetableEntry)  // Add custom study sessions
     suspend fun deleteTimetableEntry(entry: TimetableEntry)  // Delete an entry
+    suspend fun importTimetableFromExcel(context: Context, uri: Uri, course: String, level: String)
+
+
 }

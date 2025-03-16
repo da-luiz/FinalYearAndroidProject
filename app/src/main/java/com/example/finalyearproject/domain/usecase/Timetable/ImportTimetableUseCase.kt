@@ -2,7 +2,7 @@ package com.example.finalyearproject.domain.usecase.Timetable
 
 import com.example.finalyearproject.domain.model.TimetableEntry
 import com.example.finalyearproject.domain.repository.ScheduleRepository
-import com.example.finalyearproject.domain.util.ExcelParser
+import com.example.finalyearproject.data.excel.ExcelParser
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.InputStream

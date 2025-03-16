@@ -1,7 +1,6 @@
-package com.example.finalyearproject.domain.util
+package com.example.finalyearproject.data.excel
 
 import java.io.InputStream
-import com.example.finalyearproject.domain.model.TimetableEntry
 import org.apache.poi.ss.usermodel.WorkbookFactory
 import org.apache.poi.ss.usermodel.Row
 import org.apache.poi.ss.usermodel.CellType
