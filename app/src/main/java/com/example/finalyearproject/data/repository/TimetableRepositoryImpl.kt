@@ -34,7 +34,7 @@ class TimetableRepositoryImpl(private val dao: TimetableDao) : TimetableReposito
         dao.insertTimetable(listOf(entry.toEntity()))
     }
 
-    override suspend fun deleteTimetableEntry(entry: TimetableEntry) {
+    override suspend fun deleteTimetableEntry(entry: Int) {
         dao.deleteTimetableEntry(entry.courseName, entry.dayOfWeek)
     }
 
