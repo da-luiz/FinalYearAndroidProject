@@ -22,4 +22,8 @@ interface AssignmentDao {
 
     @Delete
     suspend fun deleteAssignment(assignment: AssignmentEntity)
+
+    @Query("SELECT * FROM assignments ORDER BY dueDate ASC")
+    fun getAssignments(): Flow<List<AssignmentEntity>>
+
 }

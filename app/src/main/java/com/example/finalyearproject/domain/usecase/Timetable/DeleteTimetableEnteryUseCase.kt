@@ -7,3 +7,4 @@ class DeleteTimetableEntryUseCase(private val repository: TimetableRepository) {
         repository.deleteTimetableEntry(entryId)
     }
 }
+

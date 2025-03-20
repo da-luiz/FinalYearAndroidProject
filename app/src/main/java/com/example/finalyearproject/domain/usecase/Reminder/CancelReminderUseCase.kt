@@ -1,4 +1,4 @@
-package com.example.finalyearproject.domain.usecase.Reminder
+package com.example.finalyearproject.domain.usecase.reminder
 
 import com.example.finalyearproject.domain.repository.ReminderRepository
 

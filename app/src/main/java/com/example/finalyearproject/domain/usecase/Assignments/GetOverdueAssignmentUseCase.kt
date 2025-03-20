@@ -1,4 +1,4 @@
-package com.example.finalyearproject.domain.usecase.Assignments
+package com.example.finalyearproject.domain.usecase.assignments
 
 import com.example.finalyearproject.domain.model.Assignment
 import com.example.finalyearproject.domain.repository.AssignmentRepository

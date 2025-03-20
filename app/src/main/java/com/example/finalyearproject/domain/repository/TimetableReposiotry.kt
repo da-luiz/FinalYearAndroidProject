@@ -10,7 +10,7 @@ interface TimetableRepository {
     suspend fun saveTimetable(timetable: List<TimetableEntry>)
     suspend fun updateTimetableEntry(entry: TimetableEntry)  // Edit an existing entry
     suspend fun addCustomTimetableEntry(entry: TimetableEntry)  // Add custom study sessions
-    suspend fun deleteTimetableEntry(entry: Int)  // Delete an entry
+    suspend fun deleteTimetableEntry(entryId: Int)  // Delete an entry
     suspend fun importTimetableFromExcel(context: Context, uri: Uri, course: String, level: String)
 
 

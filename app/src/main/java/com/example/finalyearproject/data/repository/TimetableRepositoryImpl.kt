@@ -34,8 +34,8 @@ class TimetableRepositoryImpl(private val dao: TimetableDao) : TimetableReposito
         dao.insertTimetable(listOf(entry.toEntity()))
     }
 
-    override suspend fun deleteTimetableEntry(entry: Int) {
-        dao.deleteTimetableEntry(entry.courseName, entry.dayOfWeek)
+    override suspend fun deleteTimetableEntry(entryId: Int) {
+        dao.deleteTimetableEntry(entryId) // ✅ Pass only the ID
     }
 
     override suspend fun importTimetableFromExcel(context: Context, uri: Uri, course: String, level: String) {

@@ -9,8 +9,18 @@ import kotlinx.coroutines.flow.StateFlow
 class NotificationViewModel : ViewModel() {
     private val _notifications = MutableStateFlow(
         listOf(
-            AssignmentReminder(NotificationType.ASSIGNMENT, "Assignment due tomorrow!", System.currentTimeMillis()),
-            AssignmentReminder(NotificationType.TIMETABLE, "New timetable available", System.currentTimeMillis())
+            AssignmentReminder(
+                assignmentId = "1",
+                assignmentTitle = "Assignment due tomorrow!",
+                reminderTime = System.currentTimeMillis(),
+                type = NotificationType.ASSIGNMENT // ✅ Now includes 'type'
+            ),
+            AssignmentReminder(
+                assignmentId = "2",
+                assignmentTitle = "New timetable available",
+                reminderTime = System.currentTimeMillis(),
+                type = NotificationType.TIMETABLE // ✅ Now includes 'type'
+            )
         )
     )
     val notifications: StateFlow<List<AssignmentReminder>> = _notifications
