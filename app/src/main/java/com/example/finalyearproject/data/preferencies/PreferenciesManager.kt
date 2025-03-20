@@ -1,37 +1,46 @@
 package com.example.finalyearproject.data.preferencies
 
 import android.content.Context
-import androidx.datastore.preferences.core.booleanPreferencesKey
-import androidx.datastore.preferences.core.edit
-import androidx.datastore.preferences.core.stringPreferencesKey
+import androidx.datastore.preferences.core.*
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.runBlocking
 
-private val Context.dataStore by preferencesDataStore("user_prefs")
+// ✅ Define DataStore Extension for Context
+private val Context.dataStore by preferencesDataStore(name = "user_preferences")
 
 class PreferencesManager(private val context: Context) {
 
-    private val THEME_KEY = booleanPreferencesKey("dark_mode")
-    private val VIEW_TYPE_KEY = stringPreferencesKey("last_view")
-
-    val themeMode: Flow<Boolean> = context.dataStore.data.map { prefs ->
-        prefs[THEME_KEY] ?: false
+    companion object {
+        private val KEY_USERNAME = stringPreferencesKey("key_username")
+        private val KEY_NOTIFICATIONS = booleanPreferencesKey("key_notifications")
     }
 
-    suspend fun saveThemeMode(isDarkMode: Boolean) {
-        context.dataStore.edit { prefs ->
-            prefs[THEME_KEY] = isDarkMode
+    // ✅ Save username
+    suspend fun saveUsername(username: String) {
+        context.dataStore.edit { preferences ->
+            preferences[KEY_USERNAME] = username
         }
     }
 
-    val lastSelectedView: Flow<String> = context.dataStore.data.map { prefs ->
-        prefs[VIEW_TYPE_KEY] ?: "week"
+    // ✅ Get username
+    val usernameFlow: Flow<String?> = context.dataStore.data
+        .map { preferences -> preferences[KEY_USERNAME] }
+
+    // ✅ Enable/Disable Notifications
+    suspend fun saveNotificationPreference(enabled: Boolean) {
+        context.dataStore.edit { preferences ->
+            preferences[KEY_NOTIFICATIONS] = enabled
+        }
     }
 
-    suspend fun saveLastSelectedView(viewType: String) {
-        context.dataStore.edit { prefs ->
-            prefs[VIEW_TYPE_KEY] = viewType
-        }
+    val notificationsFlow: Flow<Boolean> = context.dataStore.data
+        .map { preferences -> preferences[KEY_NOTIFICATIONS] ?: true }
+
+    // ✅ Get Value Synchronously (For Testing)
+    fun getSavedUsername(): String? = runBlocking {
+        context.dataStore.data.map { it[KEY_USERNAME] }.first()
     }
 }

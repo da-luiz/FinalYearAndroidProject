@@ -1,4 +1,4 @@
-package com.example.finalyearproject.domain.usecase.timetable
+package com.example.finalyearproject.domain.usecase.Timetable
 
 import com.example.finalyearproject.domain.repository.TimetableRepository
 
@@ -7,3 +7,4 @@ class DeleteTimetableEntryUseCase(private val repository: TimetableRepository) {
         repository.deleteTimetableEntry(entryId)
     }
 }
+

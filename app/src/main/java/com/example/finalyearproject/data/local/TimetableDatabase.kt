@@ -4,12 +4,15 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.finalyearproject.data.local.dao.AssignmentDao
 import com.example.finalyearproject.data.local.dao.TimetableDao
+import com.example.finalyearproject.data.local.entities.AssignmentEntity
 import com.example.finalyearproject.data.local.entities.TimetableEntity
 
-@Database(entities = [TimetableEntity::class], version = 1, exportSchema = false)
+@Database(entities = [TimetableEntity::class, AssignmentEntity::class], version = 1, exportSchema = false)
 abstract class TimetableDatabase : RoomDatabase() {
     abstract fun timetableDao(): TimetableDao
+    abstract fun assignmentDao(): AssignmentDao
 
     companion object {
         @Volatile
@@ -21,7 +24,7 @@ abstract class TimetableDatabase : RoomDatabase() {
                     context.applicationContext,
                     TimetableDatabase::class.java,
                     "timetable_database"
-                ).build()
+                ).fallbackToDestructiveMigration().build()
                 INSTANCE = instance
                 instance
             }

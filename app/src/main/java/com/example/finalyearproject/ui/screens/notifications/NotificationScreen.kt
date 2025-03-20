@@ -1,3 +1,5 @@
+package com.example.finalyearproject.ui.screens.notifications
+
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent

@@ -22,6 +22,8 @@ interface TimetableDao {
     @Update
     suspend fun updateTimetableEntry(entity: TimetableEntity)
 
-    @Query("DELETE FROM timetable WHERE courseName = :courseName AND dayOfWeek = :dayOfWeek")
-    suspend fun deleteTimetableEntry(courseName: String, dayOfWeek: String)
+    @Query("DELETE FROM timetable WHERE id = :entryId")
+    suspend fun deleteTimetableEntry(entryId: Int)
+
+
 }

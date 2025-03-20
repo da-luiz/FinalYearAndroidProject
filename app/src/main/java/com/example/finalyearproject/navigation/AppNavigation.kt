@@ -1,8 +1,8 @@
 package com.example.finalyearproject.navigation
 
 import AssignmentTrackerScreen
-import LoginScreen
-import NotificationsScreen
+import com.example.finalyearproject.ui.screens.login.LoginScreen
+import com.example.finalyearproject.ui.screens.notifications.NotificationsScreen
 import ProfileScreen
 import SchedulesScreen
 import SettingsScreen
