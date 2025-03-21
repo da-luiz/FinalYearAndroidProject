@@ -27,7 +27,8 @@ sealed class Screen(val route: String) {
 @Composable
 fun AppNavigation(navController: NavHostController = rememberNavController()) {
     NavHost(navController, startDestination = Screen.Login.route) {
-        composable(Screen.Login.route) { LoginScreen() { navController.navigate(Screen.Timetable.route) } }
+        //composable(Screen.Login.route) { LoginScreen() { navController.navigate(Screen.Timetable.route) } }
+        composable(Screen.Login.route) { LoginScreen() { navController.navigate(Screen.Timetable.route) }}
         composable(Screen.Timetable.route) { TimetableScreen() }
         composable(Screen.Notifications.route) { NotificationsScreen() }
         composable(Screen.Profile.route) { ProfileScreen() }

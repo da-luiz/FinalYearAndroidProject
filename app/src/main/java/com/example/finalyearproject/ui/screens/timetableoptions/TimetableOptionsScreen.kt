@@ -1,4 +1,5 @@
-import android.content.Intent
+package com.example.finalyearproject.ui.screens.timetableoptions
+
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent

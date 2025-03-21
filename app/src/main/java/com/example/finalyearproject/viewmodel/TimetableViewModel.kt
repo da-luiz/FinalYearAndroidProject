@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.finalyearproject.domain.repository.TimetableRepository
 import kotlinx.coroutines.launch
 
-class TimetableViewModel(private val repository: TimetableRepository) : ViewModel() {
+open class TimetableViewModel(private val repository: TimetableRepository) : ViewModel() {
 
     fun importTimetable(context: Context, uri: Uri, course: String, level: String) {
         viewModelScope.launch {
