@@ -1,14 +1,10 @@
 package com.example.finalyearproject.domain.model
 
-enum class NotificationType {
-    ASSIGNMENT,
-    TIMETABLE,
-    GENERAL
-}
+import java.util.Date
+
 
 data class AssignmentReminder(
-    val assignmentId: String,  // ✅ Ensure ID is a String
-    val assignmentTitle: String,
-    val reminderTime: Long,  // ✅ Changed from Date → Long
-    val type: NotificationType  // ✅ Ensure type is included
+    val assignmentId: String,  // Reference to the Assignment
+    val assignmentTitle: String,  // Title of the Assignment
+    val reminderTime: Date  // When the reminder should be triggered
 )

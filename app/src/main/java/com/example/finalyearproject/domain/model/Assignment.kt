@@ -3,7 +3,7 @@ package com.example.finalyearproject.domain.model
 import java.util.Date
 
 data class Assignment(
-    val id: Int,  // Unique ID
+    val id: String,  // Unique ID
     val courseCode: String,  // e.g., "COSC 201"
     val title: String,  // e.g., "Database Design Project"
     val dueDate: Date,  // Due date & time

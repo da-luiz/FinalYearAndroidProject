@@ -7,6 +7,6 @@ interface ScheduleRepository {
     suspend fun getScheduleById(id: String): Schedule?
     suspend fun saveSchedule(schedule: Schedule)
     suspend fun deleteSchedule(id: String)
-    //fun saveTimetableEntries(entries: kotlin.collections.List<com.example.finalyearproject.domain.model.TimetableEntry>)
+    //fun saveTimetableEntries(entries: kotlin.collections.List<com.example.projectional.domain.model.TimetableEntry>)
     fun saveTimetable(entries: kotlin.collections.List<com.example.finalyearproject.domain.model.TimetableEntry>)
 }
