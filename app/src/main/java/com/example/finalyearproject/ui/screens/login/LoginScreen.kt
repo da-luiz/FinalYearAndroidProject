@@ -1,8 +1,5 @@
 package com.example.finalyearproject.ui.screens.login
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -15,34 +12,22 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.compose.rememberNavController
-import com.example.finalyearproject.navigation.AppNavigation
 import com.example.finalyearproject.R
 
-class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            val navController = rememberNavController() // ✅ Initialize navController
-            AppNavigation(navController) // ✅ Pass it to your navigation system
-        }
-    }
-}
-
 @Composable
-fun LoginScreen(onProceed: () -> Unit = {}) {
-    var username by remember { mutableStateOf(TextFieldValue()) }
+fun LoginScreen(onProceed: (String) -> Unit = {}) {
+    var username by remember { mutableStateOf("") } // ✅ Using remember (fixed)
+    val isUsernameEntered = username.isNotBlank() // ✅ Only enables button if text is entered
 
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
         // ✅ Background Image
         Image(
-            painter = painterResource(R.drawable.timetable_app_home_screen), // Your image file in res/drawable
+            painter = painterResource(R.drawable.timetable_app_home_screen),
             contentDescription = "Login Background",
             contentScale = ContentScale.Crop,
             modifier = Modifier.fillMaxSize()
@@ -52,7 +37,7 @@ fun LoginScreen(onProceed: () -> Unit = {}) {
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color.Black.copy(alpha = 0.4f)) // Darkens the background
+                .background(Color.Black.copy(alpha = 0.4f))
         )
 
         // ✅ Content Column
@@ -67,38 +52,44 @@ fun LoginScreen(onProceed: () -> Unit = {}) {
                 text = "Welcome!",
                 fontSize = 32.sp,
                 fontWeight = FontWeight.Bold,
-                color = Color.Black,
+                color = Color.White,
                 modifier = Modifier.padding(bottom = 16.dp)
             )
-            Spacer(
-                modifier = Modifier.height(56.dp)
-            )
+
+            Spacer(modifier = Modifier.height(56.dp))
+
             Card(
                 shape = RoundedCornerShape(26.dp),
+                colors = CardDefaults.cardColors(containerColor = Color(0xFFE0E0E0)), // ✅ Light Grey
                 elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(Color(0xFFEEEEEE))
+                modifier = Modifier.fillMaxWidth()
             ) {
                 Column(
                     modifier = Modifier.padding(16.dp)
                 ) {
-                    Text(text = "Select Username", fontSize = 18.sp, fontWeight = FontWeight.Medium)
+                    Text(text = "Enter Username", fontSize = 18.sp, fontWeight = FontWeight.Medium)
                     Spacer(modifier = Modifier.height(8.dp))
-                    TextField(
+
+                    // ✅ FIXED: TextField now updates username properly
+                    OutlinedTextField(
                         value = username,
-                        onValueChange = { username = it },
+                        onValueChange = { input -> username = input }, // ✅ Corrected parameter
                         placeholder = { Text("@Username") },
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth(),
+                        singleLine = true
                     )
+
                     Spacer(modifier = Modifier.height(16.dp))
+
+                    // ✅ Button only enables when a username is entered
                     Button(
-                        onClick = { onProceed() }, // ✅ Navigation Trigger
+                        onClick = { onProceed(username) },
+                        enabled = isUsernameEntered,
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(8.dp),
                         colors = ButtonDefaults.buttonColors(
-                            containerColor = Color(0xFFBDBDBD), // ✅ Grey Color
-                            contentColor = Color.Black
+                            containerColor = if (isUsernameEntered) Color(0xFF757575) else Color(0xFFBDBDBD),
+                            contentColor = Color.White
                         )
                     ) {
                         Text("Proceed")
@@ -109,3 +100,8 @@ fun LoginScreen(onProceed: () -> Unit = {}) {
     }
 }
 
+@Preview(showBackground = true)
+@Composable
+fun PreviewLoginScreen() {
+    LoginScreen {}
+}

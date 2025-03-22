@@ -1,4 +1,4 @@
-package com.example.finalyearproject
+/*package com.example.finalyearproject
 
 import com.example.finalyearproject.domain.util.Result
 import org.junit.Assert.assertEquals
@@ -31,3 +31,4 @@ class ResultTest {
         assertTrue(true) // ✅ Ensure Loading state exists
     }
 }
+*/

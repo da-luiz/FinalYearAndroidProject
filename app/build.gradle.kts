@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.finalyearproject"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -48,7 +48,7 @@ dependencies {
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
 
-
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
     implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
 
     implementation ("androidx.compose.ui:ui:1.5.4")

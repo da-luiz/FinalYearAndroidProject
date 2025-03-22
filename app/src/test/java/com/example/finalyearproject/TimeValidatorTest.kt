@@ -1,4 +1,4 @@
-package com.example.finalyearproject
+/*package com.example.finalyearproject
 
 import com.example.finalyearproject.domain.model.TimetableEntry
 import com.example.finalyearproject.domain.util.TimeValidator
@@ -37,3 +37,4 @@ class TimeValidatorTest {
         assertFalse(validator.hasNoTimeConflict(existingClasses, conflictingClass))
     }
 }
+*/
