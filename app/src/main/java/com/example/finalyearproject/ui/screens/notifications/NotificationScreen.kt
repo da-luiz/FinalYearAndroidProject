@@ -11,18 +11,21 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 
 class NotificationsActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            NotificationsScreen()
+            val navController = rememberNavController() // Create NavController instance
+            NotificationsScreen(navController) // Pass it to your composable
         }
     }
 }
 
 @Composable
-fun NotificationsScreen() {
+fun NotificationsScreen(navController: NavHostController) {
     val notifications = listOf(
         "Assignment due tomorrow!",
         "New timetable available",

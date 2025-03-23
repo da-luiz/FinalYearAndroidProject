@@ -12,15 +12,17 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.finalyearproject.R
 
 @Composable
-fun LoginScreen(onProceed: (String) -> Unit = {}) {
-    var username by remember { mutableStateOf("") } // ✅ Using remember (fixed)
-    val isUsernameEntered = username.isNotBlank() // ✅ Only enables button if text is entered
+fun LoginScreen(onProceed: () -> Unit) {
+    var username by remember { mutableStateOf(TextFieldValue("")) }
+    val isUsernameEntered = username.text.isNotBlank()
 
     Box(
         modifier = Modifier.fillMaxSize()
@@ -40,7 +42,6 @@ fun LoginScreen(onProceed: (String) -> Unit = {}) {
                 .background(Color.Black.copy(alpha = 0.4f))
         )
 
-        // ✅ Content Column
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -70,10 +71,10 @@ fun LoginScreen(onProceed: (String) -> Unit = {}) {
                     Text(text = "Enter Username", fontSize = 18.sp, fontWeight = FontWeight.Medium)
                     Spacer(modifier = Modifier.height(8.dp))
 
-                    // ✅ FIXED: TextField now updates username properly
+                    // ✅ Updated: TextField now correctly updates the username
                     OutlinedTextField(
                         value = username,
-                        onValueChange = { input -> username = input }, // ✅ Corrected parameter
+                        onValueChange = { username = it },
                         placeholder = { Text("@Username") },
                         modifier = Modifier.fillMaxWidth(),
                         singleLine = true
@@ -81,9 +82,9 @@ fun LoginScreen(onProceed: (String) -> Unit = {}) {
 
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    // ✅ Button only enables when a username is entered
+                    // ✅ Button enables only when username is entered
                     Button(
-                        onClick = { onProceed(username) },
+                        onClick = { onProceed() },
                         enabled = isUsernameEntered,
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(8.dp),
@@ -94,14 +95,9 @@ fun LoginScreen(onProceed: (String) -> Unit = {}) {
                     ) {
                         Text("Proceed")
                     }
+
                 }
             }
         }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun PreviewLoginScreen() {
-    LoginScreen {}
 }

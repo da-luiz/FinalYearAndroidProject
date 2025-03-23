@@ -1,10 +1,10 @@
 package com.example.finalyearproject.domain.model
 
 data class TimetableEntry(
-    val courseName: String,
+    val day: String,
     val startTime: String,
     val endTime: String,
-    val dayOfWeek: String,
-    val venue: String,
-    val isCustom: Boolean = false
+    val courseName: String,
+    val instructor: String,
+    val venue: String
 )

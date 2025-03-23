@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface TimetableDao {
-    @Query("SELECT * FROM timetable ORDER BY dayOfWeek, startTime")
+    @Query("SELECT * FROM timetable ORDER BY day, startTime")
     fun getTimetable(): Flow<List<TimetableEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

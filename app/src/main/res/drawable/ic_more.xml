@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <View
+        android:id="@+id/more"
+        android:layout_width="36dp"
+        android:layout_height="35.98dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="350dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="30.84dp"
+        />
+
+
+</selector>

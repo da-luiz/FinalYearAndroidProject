@@ -9,6 +9,8 @@ data class TimetableEntity(
     val courseName: String,
     val startTime: String,
     val endTime: String,
-    val dayOfWeek: String,
+    val day: String,  // ✅ Ensure this column exists
+    val instructor: String,  // ✅ Ensure instructor is also added if needed
     val venue: String
 )
+

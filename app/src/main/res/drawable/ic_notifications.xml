@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <View
+        android:id="@+id/notification"
+        android:layout_width="35dp"
+        android:layout_height="42.15dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="242dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="27.76dp"
+        />
+
+
+</selector>

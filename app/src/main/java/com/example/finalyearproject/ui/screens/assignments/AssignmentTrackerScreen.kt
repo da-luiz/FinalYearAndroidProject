@@ -1,3 +1,5 @@
+package com.example.finalyearproject.ui.screens.assignments
+
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -8,18 +10,20 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 
 class AssignmentTrackerActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            AssignmentTrackerScreen()
+            val navController = rememberNavController() // Create NavController instance
+            AssignmentTrackerScreen(navController) // Pass it to your composable
         }
     }
 }
@@ -40,7 +44,7 @@ val sampleAssignments = listOf(
 )
 
 @Composable
-fun AssignmentTrackerScreen() {
+fun AssignmentTrackerScreen(navController: NavHostController) {
     Column(
         modifier = Modifier
             .fillMaxSize()

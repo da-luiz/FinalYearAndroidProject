@@ -1,6 +1,8 @@
 package com.example.finalyearproject.ui.screens.fileimport
 
+import com.google.gson.Gson
 import android.net.Uri
+import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
@@ -14,18 +16,24 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import com.example.finalyearproject.R
+import com.example.finalyearproject.data.excel.ExcelParser
+import com.example.finalyearproject.domain.model.TimetableEntry
 import com.example.finalyearproject.viewmodel.TimetableViewModel
 
 @Composable
-fun FileImportScreen(viewModel: TimetableViewModel = viewModel()) {
+fun FileImportScreen(navController: NavController,viewModel: TimetableViewModel) {
     val context = LocalContext.current
     var selectedFileUri by remember { mutableStateOf<Uri?>(null) }
     var course by remember { mutableStateOf("") }
     var level by remember { mutableStateOf("") }
     var importSuccess by remember { mutableStateOf(false) }
+    var timetableData by remember { mutableStateOf<List<TimetableEntry>?>(null) }
+    //val extractedTimetable: List<TimetableEntry> = ExcelParser.parseExcelFile(inputStream, course, level)
+
 
     val filePickerLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent()
@@ -33,11 +41,7 @@ fun FileImportScreen(viewModel: TimetableViewModel = viewModel()) {
         selectedFileUri = uri
     }
 
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-    ) {
-        // ✅ Background Image
+    Box(modifier = Modifier.fillMaxSize()) {
         Image(
             painter = painterResource(id = R.drawable.pexels_markoklaric_6408282),
             contentDescription = "Background Image",
@@ -46,27 +50,25 @@ fun FileImportScreen(viewModel: TimetableViewModel = viewModel()) {
         )
 
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(16.dp),
+            modifier = Modifier.fillMaxSize().padding(16.dp),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Card(
                 shape = RoundedCornerShape(16.dp),
-                colors = CardDefaults.cardColors(containerColor = Color(0xAAFFFFFF)), // ✅ Semi-transparent background
+                colors = CardDefaults.cardColors(containerColor = Color(0xAAFFFFFF)),
                 modifier = Modifier.padding(16.dp)
             ) {
                 Column(
                     modifier = Modifier.padding(16.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Text(text = "Enter Course Name", color = Color.Black)
+                    Text("Enter Course Name", color = Color.Black)
                     TextField(value = course, onValueChange = { course = it }, modifier = Modifier.fillMaxWidth())
 
                     Spacer(modifier = Modifier.height(8.dp))
 
-                    Text(text = "Enter Level", color = Color.Black)
+                    Text("Enter Level", color = Color.Black)
                     TextField(value = level, onValueChange = { level = it }, modifier = Modifier.fillMaxWidth())
 
                     Spacer(modifier = Modifier.height(16.dp))
@@ -78,25 +80,65 @@ fun FileImportScreen(viewModel: TimetableViewModel = viewModel()) {
                     Spacer(modifier = Modifier.height(16.dp))
 
                     selectedFileUri?.let { uri ->
-                        Text(text = "Selected file: $uri", color = Color.Black)
+                        Text("Selected file: $uri", color = Color.Black)
 
                         Button(onClick = {
-                            if (course.isNotEmpty() && level.isNotEmpty()) {
-                                viewModel.importTimetable(context, uri, course, level)
-                                importSuccess = true
+                            if (course.isNotEmpty() && level.isNotEmpty() && selectedFileUri != null) {
+                                Log.d("FileImportScreen", "Processing file: $selectedFileUri")
+
+                                val inputStream = context.contentResolver.openInputStream(selectedFileUri!!)
+                                if (inputStream != null) {
+                                    val extractedTimetable: List<TimetableEntry> = ExcelParser.parseExcelFile(inputStream, course, level)
+
+                                    if (extractedTimetable.isNotEmpty()) {
+                                        Log.d("FileImportScreen", "✅ Import Successful! Data: $extractedTimetable")
+
+                                        // ✅ Store the extracted timetable
+                                        timetableData = extractedTimetable
+
+                                        // ✅ Convert to JSON and Navigate
+                                        val jsonTimetable = Uri.encode(Gson().toJson(extractedTimetable))
+                                        navController.navigate("timetableScreen/$jsonTimetable")
+                                    } else {
+                                        Log.e("FileImportScreen", "❌ No timetable data found!")
+                                    }
+                                } else {
+                                    Log.e("FileImportScreen", "Error: Unable to open file stream!")
+                                }
+                            } else {
+                                Log.e("FileImportScreen", "Missing input fields")
                             }
                         }) {
                             Text("Process File")
                         }
+
+
+
+                        Spacer(modifier = Modifier.height(16.dp))
+
+                        timetableData?.let { timetable ->
+                            Column {
+                                Text(text = "Extracted Timetable", color = Color.Black, style = MaterialTheme.typography.titleLarge)
+
+                                timetable.forEach { entry ->
+                                    Text(
+                                        text = "${entry.day} - ${entry.startTime} to ${entry.endTime}",
+                                        fontWeight = FontWeight.Bold,
+                                        color = Color.Black
+                                    )
+                                    Text(text = "Course: ${entry.courseName}", color = Color.DarkGray)
+                                    Text(text = "Venue: ${entry.venue}", color = Color.DarkGray)
+                                    Spacer(modifier = Modifier.height(8.dp))
+                                }
+                            }
+                        }
                     }
 
                     if (importSuccess) {
-                        Text(text = "Import Successful!", color = Color.Green)
+                        Text("✅ Import Successful!", color = Color.Green)
                     }
                 }
             }
         }
     }
 }
-
-

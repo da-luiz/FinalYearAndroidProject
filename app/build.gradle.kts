@@ -2,7 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-
+    id("kotlin-kapt")
 }
 
 android {
@@ -45,9 +45,12 @@ dependencies {
     implementation ("org.apache.poi:poi:5.2.3")
     implementation ("org.apache.poi:poi-ooxml:5.2.3")
 
+    implementation("com.google.code.gson:gson:2.10.1")
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
-
+    implementation("androidx.room:room-runtime:2.6.1")  // ✅ Room Runtime
+    implementation("androidx.room:room-ktx:2.6.1")      // ✅ Room Kotlin Extensions
+    kapt("androidx.room:room-compiler:2.6.1")
     implementation("androidx.datastore:datastore-preferences:1.0.0")
     implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
 
@@ -56,11 +59,9 @@ dependencies {
     implementation ("androidx.activity:activity-compose:1.8.2")
 
     implementation ("androidx.navigation:navigation-compose:2.7.5")
-
-    implementation ("androidx.activity:activity-compose:1.8.2")
     implementation ("androidx.compose.ui:ui:1.5.4")
-    implementation ("androidx.compose.material3:material3:1.1.2")
     implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
+
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -68,6 +69,7 @@ dependencies {
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
+    implementation ("androidx.compose.material:material-icons-extended:1.6.0")
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     testImplementation("junit:junit:4.13.2")

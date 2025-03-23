@@ -11,7 +11,7 @@ class TimeValidator {
 
     fun hasNoTimeConflict(classes: List<TimetableEntry>, newClass: TimetableEntry): Boolean {
         return classes.none { existingClass ->
-            existingClass.dayOfWeek == newClass.dayOfWeek &&
+            existingClass.day == newClass.day &&
                     areTimeOverlapping(existingClass, newClass)
         }
     }
