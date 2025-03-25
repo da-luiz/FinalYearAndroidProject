@@ -48,7 +48,7 @@ dependencies {
     implementation("com.google.code.gson:gson:2.10.1")
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
-    implementation("androidx.room:room-runtime:2.6.1")  // ✅ Room Runtime
+    implementation("androidx.room:room-runtime:2.6.1")
     implementation("androidx.room:room-ktx:2.6.1")      // ✅ Room Kotlin Extensions
     kapt("androidx.room:room-compiler:2.6.1")
     implementation("androidx.datastore:datastore-preferences:1.0.0")
@@ -62,14 +62,13 @@ dependencies {
     implementation ("androidx.compose.ui:ui:1.5.4")
     implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
 
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
-    implementation ("androidx.compose.material:material-icons-extended:1.6.0")
+    implementation ("androidx.compose.material:material-icons-extended:1.7.8")
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     testImplementation("junit:junit:4.13.2")

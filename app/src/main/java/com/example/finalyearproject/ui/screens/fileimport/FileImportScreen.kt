@@ -22,6 +22,7 @@ import androidx.navigation.NavController
 import com.example.finalyearproject.R
 import com.example.finalyearproject.data.excel.ExcelParser
 import com.example.finalyearproject.domain.model.TimetableEntry
+import com.example.finalyearproject.ui.screens.navigation.Screen
 import com.example.finalyearproject.viewmodel.TimetableViewModel
 
 @Composable
@@ -98,7 +99,9 @@ fun FileImportScreen(navController: NavController,viewModel: TimetableViewModel)
 
                                         // ✅ Convert to JSON and Navigate
                                         val jsonTimetable = Uri.encode(Gson().toJson(extractedTimetable))
-                                        navController.navigate("timetableScreen/$jsonTimetable")
+                                        // Wherever you navigate to the timetable screen (probably in FileImportScreen):
+                                        navController.navigate("${Screen.Schedule.route}/${jsonTimetable}")
+                                        //navController.navigate("timetableScreen/$jsonTimetable")
                                     } else {
                                         Log.e("FileImportScreen", "❌ No timetable data found!")
                                     }

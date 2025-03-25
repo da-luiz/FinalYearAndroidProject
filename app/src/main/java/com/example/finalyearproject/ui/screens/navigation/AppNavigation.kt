@@ -1,7 +1,8 @@
 package com.example.finalyearproject.ui.screens.navigation
 
-import android.util.Log
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -17,6 +18,12 @@ import com.example.finalyearproject.ui.screens.timetable.TimetableScreen
 import com.example.finalyearproject.viewmodel.TimetableViewModel
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.example.finalyearproject.ui.screens.more.MoreScreen
+import com.example.finalyearproject.ui.screens.HomeScreen
+import com.example.finalyearproject.ui.screens.settings.SettingsScreen
+import com.example.finalyearproject.ui.screens.assignments.AssignmentTrackerScreen
+import com.example.finalyearproject.ui.screens.notifications.NotificationsScreen
+import com.example.finalyearproject.ui.screens.profile.ProfileScreen
 
 @Composable
 fun AppNavigation(navController: NavHostController) {
@@ -25,6 +32,9 @@ fun AppNavigation(navController: NavHostController) {
     val database = remember { TimetableDatabase.getInstance(context) }
     val repository = remember { TimetableRepositoryImpl(database.timetableDao()) }
     val viewModel = viewModel { TimetableViewModel(repository) }
+
+    // Collect timetable data as State
+    val timetableData by viewModel.timetableData.collectAsState()
 
     NavHost(navController = navController, startDestination = "loginScreen") {
         composable("loginScreen") {
@@ -35,17 +45,42 @@ fun AppNavigation(navController: NavHostController) {
             FileImportScreen(navController = navController, viewModel = viewModel)
         }
 
-        composable("timetableScreen/{timetableJson}") { backStackEntry ->
-            val timetableJson = backStackEntry.arguments?.getString("timetableJson") ?: "[]"
-            val timetableData: List<TimetableEntry> = try {
-                Gson().fromJson(timetableJson, object : TypeToken<List<TimetableEntry>>() {}.type)
-            } catch (e: Exception) {
-                Log.e("NavGraph", "Error decoding JSON", e)
-                emptyList()
-            }
-
-            TimetableScreen(timetableData) // ✅ Pass timetableData instead
+        // Add routes for all screens
+        composable(Screen.Home.route) {
+            HomeScreen(navController)
         }
 
+        composable(Screen.Assignments.route) {
+            AssignmentTrackerScreen(navController)
+        }
+
+        composable(Screen.Notifications.route) {
+            NotificationsScreen(navController)
+        }
+
+        composable(Screen.More.route) {
+            MoreScreen(navController)
+        }
+
+        composable(Screen.Profile.route) {
+            ProfileScreen(navController)
+        }
+
+        composable(Screen.Settings.route) {
+            SettingsScreen(navController)
+        }
+
+        composable(Screen.Schedule.route + "/{timetableJson}") { backStackEntry ->
+            val json = backStackEntry.arguments?.getString("timetableJson")
+            val finalTimetableData = json?.let {
+                try {
+                    Gson().fromJson(it, object : TypeToken<List<TimetableEntry>>() {}.type)
+                } catch (e: Exception) {
+                    timetableData  // Use collected StateFlow data as fallback
+                }
+            } ?: timetableData
+
+            TimetableScreen(finalTimetableData)
+        }
     }
 }

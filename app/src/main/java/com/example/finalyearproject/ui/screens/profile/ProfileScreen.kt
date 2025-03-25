@@ -29,31 +29,32 @@ class ProfileActivity : ComponentActivity() {
 }
 
 @Composable
-fun ProfileScreen(navController: NavHostController) {
+fun ProfileScreen(
+    navController: NavHostController,
+    username: String = "Student",  // Default values - replace with actual data
+    course: String = "Computer Science",
+    level: String = "300 Level"
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(Color(0xFFEFEFEF))
             .padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        // Profile Picture Placeholder
+        // Profile Picture
         Card(
             shape = CircleShape,
-            modifier = Modifier
-                .size(100.dp)
-                .padding(8.dp)
+            modifier = Modifier.size(100.dp)
         ) {
-            Box(modifier = Modifier.fillMaxSize()) {
-                Text(
-                    text = "👤",
-                    fontSize = 48.sp,
-                    modifier = Modifier.align(Alignment.Center)
-                )
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                Text("👤", fontSize = 48.sp)
             }
         }
-
-        Spacer(modifier = Modifier.height(16.dp))
 
         // Profile Info Card
         Card(
@@ -61,21 +62,41 @@ fun ProfileScreen(navController: NavHostController) {
             modifier = Modifier.fillMaxWidth()
         ) {
             Column(modifier = Modifier.padding(16.dp)) {
-                ProfileInfoRow(label = "Username:", value = "@student123")
-                ProfileInfoRow(label = "Department:", value = "Computer Science")
-                ProfileInfoRow(label = "Level:", value = "300 Level")
+                ProfileInfoRow("Username:", username)
+                ProfileInfoRow("Course:", course)
+                ProfileInfoRow("Level:", level)
+            }
+        }
+
+        // Navigation Buttons
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            Button(
+                onClick = { navController.navigate("settings") },
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text("Settings")
+            }
+
+            Button(
+                onClick = { navController.navigate("schedule") },
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text("View Schedule")
             }
         }
     }
 }
 
 @Composable
-fun ProfileInfoRow(label: String, value: String) {
+private fun ProfileInfoRow(label: String, value: String) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        Text(text = label, fontWeight = FontWeight.Bold)
-        Text(text = value)
+        Text(label, fontWeight = FontWeight.Bold)
+        Text(value)
     }
 }
